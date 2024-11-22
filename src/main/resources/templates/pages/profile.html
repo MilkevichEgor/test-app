@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" data-bs-theme="dark">
+<head>
+    <title>Profile</title>
+
+    <th:block th:insert="~{index.html :: headerfiles}"></th:block>
+</head>
+<body>
+<header th:insert="~{index.html :: header}"></header>
+<div id="departments" class="container">
+    <!--    <h1 th:text="Department:${departmentData.title}"></h1>-->
+    <div class="container">
+        <form class="needs-validation" novalidate>
+            <div class="mb-3">
+                <input type="hidden" id="user_id" th:value="${profileUser.id}">
+                <label for="department" class="form-label">Department</label>
+                <input class="form-control" id="department" th:value="${departmentData.title}"
+                       th:attr="disabled=${!#authorization.expression('hasRole(''ROLE_ADMIN'')')}">
+            </div>
+            <div class="mb-3">
+                <label for="username" class="form-label">Username</label>
+                <input class="form-control" id="username" th:value="${profileUser.username}"
+                       th:attr="disabled=${!canEdit}">
+                <div id="username_error" class="invalid-feedback">
+                    This username has already taken.
+                </div>
+            </div>
+            <div class="mb-3">
+                <label for="first_name" class="form-label">First name</label>
+                <input class="form-control" id="first_name" th:value="${profileUser.firstName}"
+                       th:attr="disabled=${!canEdit}">
+            </div>
+            <div class="mb-3">
+                <label for="last_name" class="form-label">Last name</label>
+                <input class="form-control" id="last_name" th:value="${profileUser.lastName}"
+                       th:attr="disabled=${!canEdit}">
+
+            </div>
+            <button id="save_profile" type="button" class="btn btn-primary"
+                    th:attr="disabled=${!canEdit}">Save</button>
+        </form>
+    </div>
+</div>
+<script>
+    const userId = $('#user_id').val();
+    $('#save_profile').on('click', () => {
+       const settings = {
+             "url": `http://localhost:8081/users/${userId}`,
+             "method": "PATCH",
+             "timeout": 0,
+             "headers": {
+                 "Content-Type": "application/json",
+               },
+             "data": JSON.stringify({
+                 "username": $('#username').val(),
+                 "firstName": $('#first_name').val(),
+                 "lastName": $('#last_name').val()
+             }),
+       };
+       console.log('settings:', settings);
+       $.ajax({
+           ...settings,
+           success: function (response) {
+             console.log(response);
+           },
+           error: function (err) {
+               console.error('FUCK', err)
+           }
+       });
+    });
+
+</script>
+</body>
+</html>

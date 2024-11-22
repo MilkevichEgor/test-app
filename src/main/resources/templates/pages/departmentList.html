@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="dark" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Department list</title>
+    <th:block th:insert="~{index.html :: headerfiles}"></th:block>
+</head>
+<body>
+<header th:insert="~{index.html :: header}"></header>
+<div id="departments" class="container">
+    <h1 class="mt-20">Departments</h1>
+    <div class="row">
+        <div th:each="departmentItem: ${departmentList}" class="col-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 th:text="${departmentItem.title}" class="card-title"></h5>
+                    <a th:href="@{'/department/'+${departmentItem.id}}" class="btn btn-primary">View Employees</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
