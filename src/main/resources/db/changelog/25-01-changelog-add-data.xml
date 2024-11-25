@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.27.xsd">
+
+
+    <changeSet id="1732518956566-1" author="fusion">
+        <insert tableName="departments">
+            <column name="title" value="HR"/>
+        </insert>
+        <insert tableName="departments">
+            <column name="title" value="IT"/>
+        </insert>
+        <insert tableName="departments">
+            <column name="title" value="SALES"/>
+        </insert>
+    </changeSet>
+
+    <!-- Вставка ролей -->
+    <changeSet id="1732518956566-2" author="fusion">
+        <insert tableName="roles">
+            <column name="role_name" value="ROLE_ADMIN"/>
+        </insert>
+        <insert tableName="roles">
+            <column name="role_name" value="ROLE_USER"/>
+        </insert>
+        <insert tableName="roles">
+            <column name="role_name" value="ROLE_DIRECTOR"/>
+        </insert>
+    </changeSet>
+    
+    <changeSet id="1732518956566-3" author="fusion">
+        <insert tableName="users">
+            <column name="username" value="egor"/>
+            <column name="password" value="{bcrypt}$2a$10$3ei8.QE7z1jXx5jXvPqviuEUqS5r692sE.sNarKMeOI6NY78WKqHm"/>
+            <column name="first_name" value="Egor"/>
+            <column name="last_name" value="Ivanov"/>
+            <column name="department_id" value="1"/>
+        </insert>
+        <insert tableName="users">
+            <column name="username" value="vlad"/>
+            <column name="password" value="{bcrypt}$2a$10$B8k5typN9344M8KOOh2sGuU2a3hGC5l0IyDE3Fsm/J2FzjMu6RKqK"/>
+            <column name="first_name" value="Vladislav"/>
+            <column name="last_name" value="Petrov"/>
+            <column name="department_id" value="2"/>
+        </insert>
+        <insert tableName="users">
+            <column name="username" value="alex"/>
+            <column name="password" value="{bcrypt}$2a$10$Cd9mdlxDv/nbyJSR2AtR8.dOLif2nUAX4UR6wG3VEwhT2.e4/Jsn."/>
+            <column name="first_name" value="Alexey"/>
+            <column name="last_name" value="Stepnov"/>
+            <column name="department_id" value="2"/>
+        </insert>
+        <insert tableName="users">
+            <column name="username" value="vladimir"/>
+            <column name="password" value="{bcrypt}$2a$10$FnCvTPIoDJ4AcWoi4tS3hOD0dztxTjM4/RITMPOjgHw8oWcqBIjHi"/>
+            <column name="first_name" value="Vladimir"/>
+            <column name="last_name" value="Vladimirov"/>
+            <column name="department_id" value="3"/>
+        </insert>
+        <insert tableName="users">
+            <column name="username" value="stepan"/>
+            <column name="password" value="{bcrypt}$2a$10$wGrF/s0mrpCc4LI7i7lH6epDK10DAQRkXup58rdMNE7VK5C8NyLMe"/>
+            <column name="first_name" value="Stepan"/>
+            <column name="last_name" value="Safronov"/>
+            <column name="department_id" value="3"/>
+        </insert>
+        <insert tableName="users">
+            <column name="username" value="artem"/>
+            <column name="password" value="{bcrypt}$2a$10$h/gWpoPV3UsBucR8/UGcJOAEgNX/0b94fsOlptHNBOCFILSABnX.q"/>
+            <column name="first_name" value="Artem"/>
+            <column name="last_name" value="Rebrov"/>
+            <column name="department_id" value="2"/>
+        </insert>
+    </changeSet>
+
+    <changeSet id="1732518956566-4" author="fusion">
+        <insert tableName="user_roles">
+            <column name="user_id" value="1"/>
+            <column name="role_id" value="1"/>
+        </insert>
+        <insert tableName="user_roles">
+            <column name="user_id" value="2"/>
+            <column name="role_id" value="2"/>
+        </insert>
+        <insert tableName="user_roles">
+            <column name="user_id" value="3"/>
+            <column name="role_id" value="2"/>
+        </insert>
+        <insert tableName="user_roles">
+            <column name="user_id" value="4"/>
+            <column name="role_id" value="3"/>
+        </insert>
+        <insert tableName="user_roles">
+            <column name="user_id" value="5"/>
+            <column name="role_id" value="3"/>
+        </insert>
+    </changeSet>
+
+    <changeSet id="1732518956566-5" author="fusion">
+        <update tableName="departments">
+            <column name="director_id" value="2"/>
+            <where>id = 3</where>
+        </update>
+        <update tableName="departments">
+            <column name="director_id" value="3"/>
+            <where>id = 2</where>
+        </update>
+        <update tableName="departments">
+            <column name="director_id" value="4"/>
+            <where>id = 1</where>
+        </update>
+    </changeSet>
+
+</databaseChangeLog>

@@ -1,4 +1,18 @@
 services:
+
+  test-app:
+    build: .
+    restart: "no"
+    ports:
+      - "8081:8081"
+
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/testdb
+      SPRING_DATASOURCE_USERNAME: fusion
+      SPRING_DATASOURCE_PASSWORD: fusion
+    depends_on:
+      - postgres
+
   postgres:
     image: postgres:17.1
     restart: "no"
@@ -16,5 +30,6 @@ services:
       timeout: 5s
       start_period: 10s
       retries: 5
+
 volumes:
   postgres_data:
