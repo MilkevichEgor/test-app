@@ -95,16 +95,15 @@ public class UserService implements IUserService {
   @Override
   public UserDto update(Long userId, JsonNode patchNode) throws IOException {
 
-	String username = patchNode.has("username") ? patchNode.get("username").asText() : null;
-
-	if (userRepository.existsByUsername(username)) {
-	  log.error("Username {} already exists", username);
-	  throw new UsernameAlreadyExists("Username '%s' already exists".formatted(username));
-	}
-
 	User user = userRepository.findById(userId).orElseThrow(() ->
 		new ResponseStatusException(HttpStatus.NOT_FOUND, "User with id `%s` not found".formatted(userId)));
 
+	String username = patchNode.has("username") ? patchNode.get("username").asText() : null;
+
+	if (username != null && !username.equals(user.getUsername()) && userRepository.existsByUsername(username)) {
+	  log.error("Username {} already exists", username);
+	  throw new UsernameAlreadyExists("Username '%s' already exists".formatted(username));
+	}
 	objectMapper.readerForUpdating(user).readValue(patchNode);
 
 	return userMapper.toDto(userRepository.save(user));

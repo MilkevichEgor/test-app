@@ -42,10 +42,10 @@ public class AdminRestController {
 	return userService.getOne(id);
   }
 
-  @PatchMapping("/users/{id}")
-  public UserDto updateUser(@PathVariable Long id, @RequestBody JsonNode patchNode) throws IOException {
-	return userService.update(id, patchNode);
-  }
+//  @PatchMapping("/users/{id}")
+//  public UserDto updateUser(@PathVariable Long id, @RequestBody JsonNode patchNode) throws IOException {
+//	return userService.update(id, patchNode);
+//  }
 
   @DeleteMapping("/users/{id}")
   public ResponseEntity<String> delete(@PathVariable Long id) {

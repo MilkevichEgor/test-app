@@ -80,11 +80,6 @@ public class UiController {
 	return "pages/profile";
   }
 
-  @GetMapping(path = {"/add-user"})
-  public String addUserHtml(Model model) {
-	return "pages/addUser";
-  }
-
   @DeleteMapping(path = {"/users/delete/{userId}"})
   public String getEmployees(@PathVariable Long userId) {
 	userService.delete(userId);
